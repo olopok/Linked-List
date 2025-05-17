@@ -46,11 +46,6 @@ export default class LinkedList {
   }
 
   get first() {
-    // let firstNode;
-    // if (this.head !== null) {
-    //   firstNode = this.head;
-    // }
-    // return  firstNode.value;
     return this.head.value;
   }
 
@@ -66,6 +61,89 @@ export default class LinkedList {
         last = currentNode;
       }
       return last.value;
+    }
+  }
+
+  at(index) {
+    let currentNode = this.head;
+    let count = 0;
+    while (currentNode) {
+      if (count === index) {
+        return currentNode.value;
+      } else currentNode = currentNode.next;
+      count++;
+    }
+  }
+
+  pop() {
+    let currentNode = this.head;
+    while (currentNode) {
+      if (currentNode.next.next === null) {
+        currentNode.next = null;
+        return;
+      }
+      currentNode = currentNode.next;
+    }
+  }
+
+  contains(value) {
+    let currentNode = this.head;
+    while (currentNode) {
+      if (currentNode.value === value) {
+        return true;
+      } else if (currentNode !== value && currentNode.next === null) {
+        return false;
+      }
+      currentNode = currentNode.next;
+    }
+  }
+
+  find(value) {
+    let currentNode = this.head;
+    let count = 0;
+    while (currentNode) {
+      if (currentNode.value === value) {
+        return count;
+      } else if (currentNode.value !== value && currentNode.next === null)
+        return null;
+      currentNode = currentNode.next;
+      count++;
+    }
+  }
+
+  insertAt(value, index) {
+    const newNode = new Node(value);
+    let currentNode = this.head;
+    let count = 0;
+    while (currentNode) {
+      if (count == index - 1) {
+        newNode.next = currentNode.next.next;
+        currentNode.next = newNode;
+      } else {
+        currentNode = currentNode.next;
+      }
+      count++;
+    }
+  }
+
+  removeAt(index) {
+
+    
+    if (index === 0) {
+      this.head = this.head.next;
+      return;
+    }
+
+    let currentNode = this.head;
+    let count = 0;
+
+    while (currentNode && count < index - 1) {
+      currentNode = currentNode.next;
+      count++;
+    }
+
+    if (currentNode && currentNode.next) {
+      currentNode.next = currentNode.next.next;
     }
   }
 }
